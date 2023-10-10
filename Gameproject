@@ -1,0 +1,173 @@
+# John Goheen
+# Sample function showing the goal of the game and move commands
+
+def clear():
+    os.system("cls")
+
+def show_intro():
+    # print a main menu and the commands
+    clear()
+    print("The Longest Night")
+    print("Created by John Goheen\n")
+    print("Menu")
+    print("1, NEW GAME")
+    print("2, LOAD GAME")
+    print("3, RULES")
+    print("4, QUIT GAME")
+
+    choice = input("")
+
+    
+
+    if choice == "1":
+        # Want to give backstory to player ready for the game.
+        clear()
+        player_name = input("What's is your name, hero? ")
+
+
+        clear()
+        print("\nWelcome", player_name, "in the game in your early to mid 20’s of local village set in 1990’s.")
+        print("You are sitting outside with your girlfriend at night when moon goes dark and all sudden as moon light")
+        print("come back you hear your girlfriend is yelling.")
+        print("As her voice moves farther away you hear the evil laughter of someone from the near by castle that")
+        print("old legend say is that of Count Dracula,")
+        print("who come out to feed every 100 years waiting on his dark power to grow to back to full strength.")
+        print("As you go up you remember the old legend your grandfather use to tell you, before passing away,")
+        print("of brave hero who trap him away but was not able to finish him.")
+        print("How since he was not able to do the job, he might have left the equipment to do so behind.")
+        print("The question is you that brave soul, and could they handle the power to do so?\n")
+
+        # Need to tell about how to win as well command to move and quit game early
+        print("To win you must collect all 6 of Hero items before facing Dracula!")
+        print("Enter 'North','South','East','West' to move and 'Quit' to exit the game early.")
+        print("Good luck brave Hero!")
+        print(input("Push any key to continue"))
+        
+
+    elif choice == "2":
+        f = open("load.txt", "r")
+        load_list = f.readlines()
+        player_name = load_list
+        HP = load_list[1]
+        ATK = load_list[2]
+        MP = load_list[3]
+        RP = load_list[4]
+        print(player_name, HP, ATK, MP, RP)
+
+    elif choice == "3":
+        
+        print("As creator of this world it will be my job to help but also bring pain to you")
+        print("More you move along in the game the better the inventory there will be.")
+        print("As well stronger monster to fight till you get to Dracula")
+        print(input("Presh a key to go back to menu"))
+        show_intro()
+
+    elif choice == "4":
+        
+        print('Thanks for stopping by')
+        print(input('Push enter to exit'))
+        exit()
+
+
+# In this solution, the player’s status would be shown in a separate function.
+# You may organize your functions differently.
+
+def save():
+    list = [
+        player_name,
+        str(HP),
+        str(ATK),
+        str(MP),
+        str(RP)
+    ]
+
+    f = open("load.txt", "w")
+
+    for item in list:
+        f.write(item + "\n")
+    f.close()
+
+def main():
+    rooms = {
+        'Dungeon': {'West': 'Hall of Mirror', 'item': 'Armor'},
+        'Hall of Mirror': {'South': 'Main Hall', 'East': 'Dungeon', 'item': 'Amulet'},
+        'Main Hall': {'South': 'Grand Entrant', 'North': 'Hall of Mirror', 'West': 'Master Bedroom', 'East': 'Gallery',
+                      'item': 'Torch'},
+        'Gallery': {'West': 'Main Hall', 'North': 'Kitchen', 'item': 'Bow'},
+        'Kitchen': {'South': 'Gallery', 'item': 'Shield'},
+        'Grand Entrant': {'North': 'Main Hall', 'East': 'Library'},
+        'Library': {'West': 'Grand Entrant', 'item': 'Sword'},
+        'Master Bedroom': {'East': 'Main Hall', 'Boss': 'Dracula'}
+    }
+
+    directions = ['North', 'South', 'East', 'West']
+    current_room = 'Grand Entrant'
+    inventory = []
+
+    show_intro()
+    
+    while True:
+        # Need to show player current location
+        clear()
+        print()
+        print('Inventory', inventory)
+        print('You have enter the', current_room)
+        
+
+        # Command input for the player to move
+        command = input('What what do you want to go?').strip()
+
+        # now we need to make where player move
+        if command in rooms[current_room]:
+            # Try to move between rooms
+            current_room = rooms[current_room][command]
+        # This if the player want to exit the game
+        elif command.lower() in ('q', 'quit'):
+            print('Thanks for playing!')
+            print(input('Push enter to exit'))
+            show_intro()
+        else:
+            # This is for when player can not go in that direction
+            print('You look out into the darkness but nothing there')
+            print(input("Push any key to continue"))
+            
+        # Next we need to show how to get an item(s).
+        # We are going to ask the player if they want the item in room as if they found it when enter the room.
+        if ('item' in rooms[current_room]) and (rooms[current_room]['item'] not in inventory):
+
+            new_item = rooms[current_room]['item']
+            print('You have found', new_item)
+
+            # This is to ask if they want to add to their inventory
+            x = input('Do you  wish to add to inventory? Y/N\n').capitalize()
+            if x == 'Y':
+                # Nowe we need to append to add to inventory
+                inventory.append(new_item)
+
+        # Now make a statement if they enter boss room.
+        if current_room == 'Master Bedroom':
+
+            # Since they have to have all 6 item this will be lose statement.
+            # I set Dracula as Boss vs item as to not ask if you want try to add to inventory
+            if len(inventory) < 6:
+
+                # Have to give a you lose to player to hopeful want them to try again.
+                print('You have found Dracula with out power to save your girlfriend!')
+                print('YOU LOSE!')
+                print('Thanks for playing!')
+                print(input('Push enter to exit game'))
+                show_intro()
+
+                # This is our statement for getting all 6 items and winning the game.
+            # Next time I like to learn how to loop back to begin but restart game as well.
+            # I sure it might be able if I had def it as main, will have to try later.
+            else:
+                print('With power of all Six item in hand you have slade Dracula and save the day!')
+                print('You have saved your girlfriend and world!.....For now!')
+                print('THANKS FOR PLAYING!')
+                print(input('Push enter to exit game'))
+                break
+
+
+
+main()
