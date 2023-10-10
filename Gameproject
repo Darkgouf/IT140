@@ -1,5 +1,6 @@
 # John Goheen
-# Sample function showing the goal of the game and move commands
+# Sample function showing the goal of the game and movement commands
+#This is just what I turned in as you can see there was and hopefully, one day will be more
 
 def clear():
     os.system("cls")
@@ -72,20 +73,6 @@ def show_intro():
 # In this solution, the player’s status would be shown in a separate function.
 # You may organize your functions differently.
 
-def save():
-    list = [
-        player_name,
-        str(HP),
-        str(ATK),
-        str(MP),
-        str(RP)
-    ]
-
-    f = open("load.txt", "w")
-
-    for item in list:
-        f.write(item + "\n")
-    f.close()
 
 def main():
     rooms = {
