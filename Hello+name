@@ -1,0 +1,5 @@
+#First enter code for getting name
+name= input("What is your name? ")
+
+#Now we have to call name and print statement
+print("Hello, " + name + "!")
