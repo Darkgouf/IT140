@@ -1,0 +1,27 @@
+import random
+
+#Need to get a number that be winning number
+seedVal = int(input('What seed should be used? ')) 
+random.seed(seedVal)
+
+#Set what lowest number someone can guess
+lower = int(input('What is the lower bound? '))
+
+#Set what highest number someone can guess
+upper = int(input('What is the upper bound? '))
+
+random.randint(lower, upper)
+
+user_guess = int(input('What is your guess? '))
+
+while user_guess != seedVal:
+    if user_guess < seedVal:
+        print('Nope, is too low.')
+    elif user_guess > seedVal:
+        print('Nope, is too high.')
+    user_guess = int(input('Guess another number? '))
+while user_guess == seedVal:
+    if user_guess == seedVal:
+        print('You got it!')
+    break
+input()
