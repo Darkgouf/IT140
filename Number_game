@@ -1,0 +1,25 @@
+#First ask for first number
+num1=int(input("What is your first number? "))
+
+#Ask for second number
+num2 =int(input("What is your second number? "))
+
+#add two number
+sum = num1 + num2
+
+print("The sum of " + str(num1) + " and " + str(num2) + " is " + str(sum))
+
+#sub two number
+sum2 = num1 - num2
+
+print("The subtraction of " + str(num1) + " and " + str(num2) + " is " + str(sum2))
+
+#muptly two number
+sum3 = num1 * num2
+
+print("The muplty of " + str(num1) + " and " + str(num2) + " is " + str(sum3))
+
+#division two number
+sum4 = num1 / num2
+
+print("The division of " + str(num1) + " and " + str(num2) + " is " + str(sum4))
