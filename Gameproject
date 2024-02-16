@@ -2,6 +2,11 @@
 # Sample function showing the goal of the game and movement commands
 #This is just what I turned in as you can see there was and hopefully, one day will be more
 
+import os
+import sys
+import pygame
+import random
+
 def clear():
     os.system("cls")
 
